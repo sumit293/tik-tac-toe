@@ -28,6 +28,10 @@ boxes.forEach((box, index)=>{
     box.innerHTML= "";
     boxes[index].style.pointerEvents="all";
 
+    // initialize boxes  with css propertise again 
+         box.classList = `box box${index + 1}`;
+
+
 })
 
 newGameBtn.classList.remove("active");
@@ -40,8 +44,56 @@ initGame();
 
 function checkGmaeOver(){
     let answer  = "";
-    
+    winningPosition.forEach((position)=>{
+           if( (gameGrid[position[0]] !== "" || gameGrid[position[1]] !== "" || gameGrid[position[2]] !== "") 
+                && (gameGrid[position[0]] === gameGrid[position[1]] ) && (gameGrid[position[1]] === gameGrid[position[2]])) {
+
+                    //check if winner is X
+                    if(gameGrid[position[0]] === "X") 
+                        answer = "X";
+                    else {
+                        answer = "O";
+                    } 
+                    //disable pointer events 
+                  boxes.forEach((box) => {
+                    box.style.pointerEvents = "none";
+                    return;
+
+                  })
+                        
+
+                    //disable pointer events
+                    boxes.forEach((box) => {
+                        box.style.pointerEvents = "none";
+                    })
+
+                    //now we know X/O is a winner
+                    boxes[position[0]].classList.add("win");
+                    boxes[position[1]].classList.add("win");
+                    boxes[position[2]].classList.add("win");
+            }
+    }); 
+
+    //we have a winner 
+    if(answer !==""){
+gameInfo.innerText = `winner player - ${answer}`;
+newGameBtn.classList.add("active");
+
+    }
+
+    let fillcount = 0;
+    gameGrid.forEach((box)=>{
+        if(box !=="")
+            fillcount++;
+    });
+
+    if(fillcount ===9){
+        gameInfo.innerText.add = "GAME TIED !";
+        newGameBtn.classList.add("active");
+
+    }
 }
+
  
 function swapTurn(){
     if(currentPlayer =="X"){
