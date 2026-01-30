@@ -131,3 +131,8 @@ boxes.forEach((box, index) =>{
 
 newGameBtn.addEventListener("click", initGame);
 
+ const card = document.querySelector(".side-card");
+
+  card.addEventListener("click", () => {
+    card.innerHTML = "<p>😜 ban gaya game mera  game khelunga bajge do,  soja firse  wrna diet bole No </p>";
+  });
